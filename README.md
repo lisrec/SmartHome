@@ -1,2 +1,2 @@
-# mediCalendar
-Kalendarz Medyczny
+# SmartHome
+Projekt inteligentnego domu
