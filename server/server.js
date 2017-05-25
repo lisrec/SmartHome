@@ -7,6 +7,7 @@ var _ 			= require('lodash');
 
 var config = require('./config');
 var auth = require('./routes/auth');
+var devicesRouter = require('./routes/devices');
 //var route = require('./routes/route');
 
 
@@ -32,6 +33,8 @@ app.use(function(req, res, next) {
 	}
 });
 
+app.use("/api/devices", devicesRouter);
+
 app.use('/api/auth', function(req,res,next) {
 		req.jwt = jwt;
 		req.secret = app.get('superSecret');
@@ -56,6 +59,8 @@ app.use(function(req, res, next) {
 		});
 	}
 });
+
+
 
 //app.use('/api/route', route);
 
