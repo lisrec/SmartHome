@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular QuickStart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+	<script src="main.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+
+  <body>
+    <my-app></my-app>
+	<div>
+	<button type="button" onclick="b1()" >Click b1!</button><span style="color:green"> użądzenie 1</span> 
+	</br>
+ 	<button type="button" onclick="b2()" >Click b2!</button> <span style="color:green">użądzenie 2</span>
+	</br>	
+	<button type="button"onclick="b3()"" >Click b3!</button><span style="color:green"> użądzenie 3</span> 
+	</br> 	
+	<button type="button" onclick="b4()" >Click b4!</button> <span style="color:green">użądzenie 4</span>
+	</br>
+	<button type="button" onclick="b5()" >Click b5!</button><span style="color:green"> użądzenie 5</span> 
+ 	</br>
+	<button type="button" onclick="b6()" >Click b6!</button> <span style="color:green">użądzenie 6</span>
+	</div>
+  </body>
+</html>
