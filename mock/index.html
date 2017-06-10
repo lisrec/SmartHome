@@ -11,6 +11,7 @@
 
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="systemjs.config.js"></script>
 	<script src="main.js"></script>
@@ -22,9 +23,30 @@
   <body>
     <my-app></my-app>
 	<div>
-	<button type="button" onclick="b1()" >Click b1!</button><span style="color:green"> użądzenie 1</span> 
-	</br>
- 	<button type="button" onclick="b2()" >Click b2!</button> <span style="color:green">użądzenie 2</span>
+<div>
+  <form id = "deviceForm">
+    ID: <input type="text" name="id"><br>
+    pin1: <input type="text" name="pin1"><br>
+    pin2: <input type="text" name="pin2"><br>
+    pin3: <input type="text" name="pin3"><br>
+    <button type="button" onclick="createDivice()" >update device</button> <span style="color:green"></span>
+  </form>
+</div>
+  </br>
+<div>
+  <form id = "colorForm">
+    ID: <input type="text" name="id"><br>
+    R: <input type="text" name="R"><br>
+    G: <input type="text" name="G"><br>
+    B: <input type="text" name="B"><br>
+    Time: <input type="text" name="time"><br>
+    <button type="button" onclick="changeColor()" >Change color</button> <span style="color:green"></span>
+  </form>
+</div>
+
+
+
+ 	
 	</br>	
 	<button type="button"onclick="b3()"" >Click b3!</button><span style="color:green"> użądzenie 3</span> 
 	</br> 	
