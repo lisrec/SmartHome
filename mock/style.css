@@ -1,0 +1,16 @@
+#header_spacing {
+	height: 50px;
+}
+
+input {
+	width: 150px;
+}
+
+td {
+	padding: 2px;
+	min-width: 80px;
+}
+
+button {
+	width: 80px;
+}

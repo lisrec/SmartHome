@@ -1,48 +1,71 @@
-function createDivice(){
-	var data = {};
-	$("#deviceForm").serializeArray().map(function(x){data[x.name] = x.value;})
+var serverAddres = "http://localhost:3300"
 
-	console.log(data);
+var createDivice = () => {
 
-    $.ajax({
-       type: "POST",
-       url: "http://192.168.0.105:3300/api/devices/",
-       data: data, // serializes the form's elements.
-       success: function(data)
-       {
-          console.log("ok");
-       }
-     });
-};
+	let data = {}
+	$("#deviceForm").serializeArray().map((x) => {
+		data[x.name] = x.value
+	})
 
-function changeColor(){
-	var data = {};
-	$("#colorForm").serializeArray().map(function(x){data[x.name] = x.value;})
+	console.log(data)
 
-	console.log(data);
+	$.ajax({
+		type: "POST",
+		url: `${serverAddres}/api/devices/init`,
+		data: data,
+		success: (data) => {
+			console.log("ok")
+		}
+	})
+}
 
-	    $.ajax({
-       type: "POST",
-       url: "http://192.168.0.105:3300/api/devices/" + data.id + "/lights",
-       data: data, // serializes the form's elements.
-       success: function(data)
-       {
-          console.log("ok");
-       }
-     });
-};
-function b2(){
-	console.log("some");
-};
-function b3(){
-	console.log("some");
-};
-function b4(){
-	console.log("some");
-};
-function b5(){
-	console.log("some");
-};
-function b6(){
-	console.log("some");
-};
+var changeColor = () => {
+
+	let data = {}
+	$("#colorForm").serializeArray().map((x) => {
+		data[x.name] = x.value
+	})
+
+	console.log(data)
+
+	$.ajax({
+		type: "POST",
+		url: `${serverAddres}/api/devices/${data.id}/lights`,
+		data: data,
+		success: (data) => {
+			console.log("ok")
+		}
+	})
+}
+
+var deviceOn = (status) => {
+	
+	let data = {}
+	let devId = 1 * $('#onOffDevId').val()
+
+	data.enable = false
+	if(status)
+		data.enable = true
+
+	$.ajax({
+		type: "POST",
+		url: `${serverAddres}/api/devices/enable/${devId}`,
+		data: data,
+		success: (data) => {
+			console.log("ok")
+		}
+	})		
+}
+
+var getStatus = () => {
+
+	let devId = 1 * $('#onOffDevId').val()
+
+	$.ajax({
+		type: "GET",
+		url: `${serverAddres}/api/devices/getStatus/${devId}`,
+		success: (data) => {
+			console.log("ok")
+		}
+	})		
+}

@@ -1,60 +1,115 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Angular QuickStart</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>SmartHome - mockup</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<div class="container">
+			<div id="header_spacing"></div>
+			<div class="row">
+				<h3>Inicjalizacja urządzenia:</h3>
+				<form id="deviceForm">
+					<table>
+						<tr>
+							<td><b>ID:</b></td>
+							<td><input type="number" min=0 max=13 name="id"></td>
+						</tr>
+						<tr>
+							<td>pin1:</td>
+							<td><input type="number" min=-1 max=54 name="pin1"></td>
+						</tr>
+						<tr>
+							<td>pin2:</td>
+							<td><input type="number" min=-1 max=54 name="pin2"></td>
+						</tr>
+						<tr>
+							<td>pin3:</td>
+							<td><input type="number" min=-1 max=54 name="pin3"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><button type="button" onclick="createDivice()">Aktualizuj</button></td>
+						</tr>
+					</table>
+				</form>
+			</div>
 
-    <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
+			<div class="row">
+				<h3>Ustaw kolor:</h3>
+				<form id="colorForm">
+					<table>
+						<tr>
+							<td><b>ID:</b></td>
+							<td><input type="number" min=0 max=13 name="id"></td>
+						</tr>
+						<tr>
+							<td>Red:</td>
+							<td><input type="number" min=0 max=255 name="R"></td>
+						</tr>
+						<tr>
+							<td>Green:</td>
+							<td><input type="number" min=0 max=255 name="G"></td>
+						</tr>
+						<tr>
+							<td>Blue:</td>
+							<td><input type="number" min=0 max=255 name="B"></td>
+						</tr>
+						<tr>
+							<td>Czas (ms):</td>
+							<td><input type="number" min=0 max=10000 name="time"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><button type="button" onclick="changeColor()">Ustaw</button></td>
+						</tr>
+					</table>
+				</form>
+			</div>
 
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<div class="row">
+				<h3>On/Off:</h3>
+				<table id="colorForm">
+					<tr>
+						<td><b>ID:</b></td>
+						<td><input id="onOffDevId" type="number" min=0 max=13 name="id"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<button type="button" onclick="deviceOn(true)">Włącz</button>
+							<button type="button" onclick="deviceOn(false)">Wyłącz</button>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-    <script src="systemjs.config.js"></script>
-	<script src="main.js"></script>
-    <script>
-      System.import('app').catch(function(err){ console.error(err); });
-    </script>
-  </head>
+			<div class="row">
+				<h3>Pobierz dane:</h3>
+				<table id="colorForm">
+					<tr>
+						<td><b>ID:</b></td>
+						<td><input id="getStatusDevId" type="number" min=0 max=13 name="id"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<button type="button" onclick="getStatus()">Pobierz</button>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-  <body>
-    <my-app></my-app>
-	<div>
-<div>
-  <form id = "deviceForm">
-    ID: <input type="text" name="id"><br>
-    pin1: <input type="text" name="pin1"><br>
-    pin2: <input type="text" name="pin2"><br>
-    pin3: <input type="text" name="pin3"><br>
-    <button type="button" onclick="createDivice()" >update device</button> <span style="color:green"></span>
-  </form>
-</div>
-  </br>
-<div>
-  <form id = "colorForm">
-    ID: <input type="text" name="id"><br>
-    R: <input type="text" name="R"><br>
-    G: <input type="text" name="G"><br>
-    B: <input type="text" name="B"><br>
-    Time: <input type="text" name="time"><br>
-    <button type="button" onclick="changeColor()" >Change color</button> <span style="color:green"></span>
-  </form>
-</div>
+		</div>
 
-
-
- 	
-	</br>	
-	<button type="button"onclick="b3()"" >Click b3!</button><span style="color:green"> użądzenie 3</span> 
-	</br> 	
-	<button type="button" onclick="b4()" >Click b4!</button> <span style="color:green">użądzenie 4</span>
-	</br>
-	<button type="button" onclick="b5()" >Click b5!</button><span style="color:green"> użądzenie 5</span> 
- 	</br>
-	<button type="button" onclick="b6()" >Click b6!</button> <span style="color:green">użądzenie 6</span>
-	</div>
-  </body>
+		<script 
+			src="https://code.jquery.com/jquery-2.2.4.min.js" 
+			integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" 
+			crossorigin="anonymous"></script>
+		<script type="text/javascript" src="main.js"></script>
+	</body>
 </html>
