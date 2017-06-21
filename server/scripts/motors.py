@@ -21,7 +21,7 @@ def move5sec():
 		GPIO.output(moto_l, GPIO.HIGH)
 		time.sleep(5)
 		GPIO.output(moto_l, GPIO.HIGH)
-	else
+	else:
 		GPIO.output(moto_r, GPIO.HIGH)
 		time.sleep(5)
 		GPIO.output(moto_r, GPIO.HIGH)
