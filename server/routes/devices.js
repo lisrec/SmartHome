@@ -4,6 +4,7 @@ var PythonShell = require('python-shell')
 var SerialPort = require("serialport")
 
 var port = null
+var shiftregister_state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 router.initArduino = () => {
 	SerialPort.list(function (err, ports) {
@@ -113,6 +114,40 @@ router.get('/getStatus/:deviceId', (req, res, next) => {
     		res.json(data).status(200).end()
     	})
   	})
+})
+
+router.post('/shiftregister/:deviceId', (req, res, next) => {
+
+	let id = req.params.deviceId
+	enable = req.body.enable
+
+	if(id < 0 || id > 15) {
+		res.status(404).end()
+	} else {
+		shiftregister_state[id] = (enable == 'true') ? 1 : 0
+
+		let data, clock, latch
+		data = 12
+		clock = 16
+		latch = 18
+
+		let states = shiftregister_state.slice()
+		let args = [data, clock, latch].concat(states.reverse())
+
+		let options = {
+			scriptPath: 'scripts',
+			args: args
+		}
+
+		PythonShell.run('shiftregister.py', options, (err, results) => {
+			if (err) {
+				res.status(404).end()
+				throw err
+			}
+			res.json(results)
+		})
+	}
+	
 })
 
 router.post('/pythonTest', (req, res, next) => {

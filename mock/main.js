@@ -51,7 +51,7 @@ var deviceOn = (status) => {
 
 	$.ajax({
 		type: "POST",
-		url: `${serverAddres}/api/devices/enable/${devId}`,
+		url: `${serverAddres}/api/devices/shiftregister/${devId}`,
 		data: data,
 		success: (data) => {
 			console.log("ok")
