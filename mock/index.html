@@ -73,7 +73,7 @@
 
 			<div class="row">
 				<h3>On/Off:</h3>
-				<table id="colorForm">
+				<table id="onOffForm">
 					<tr>
 						<td><b>ID:</b></td>
 						<td><input id="onOffDevId" type="number" min=0 max=13 name="id"></td>
@@ -89,8 +89,33 @@
 			</div>
 
 			<div class="row">
+				<h3>Silniki</h3>
+				<table id="motorForm">
+					<tr>
+						<td><b>ID:</b></td>
+						<td><input id="motorId" type="number" min=0 max=1 name="id"></td>
+					</tr>
+					<tr>
+						<td><b>Kierunek:</b></td>
+						<td>
+							<select id="motorDirection">
+								<option>l</option>
+								<option>r</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<button type="button" onclick="runMotor()">Uruchom silnik (5sec)</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="row">
 				<h3>Pobierz dane:</h3>
-				<table id="colorForm">
+				<table id="getStatusForm">
 					<tr>
 						<td><b>ID:</b></td>
 						<td><input id="getStatusDevId" type="number" min=0 max=13 name="id"></td>

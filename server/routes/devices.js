@@ -150,6 +150,34 @@ router.post('/shiftregister/:deviceId', (req, res, next) => {
 	
 })
 
+router.post('/motor/:deviceId', (req, res, next) => {
+
+	let id = req.params.deviceId
+	direction = req.body.direction
+
+	if(direction != 'l' && direction != 'r') {
+		res.status(404).end()
+	} else {
+		let motor_l, motor_r
+		motor_l = 23
+		motor_r = 24
+
+		let options = {
+			scriptPath: 'scripts',
+			args: [motor_l, motor_r, direction]
+		}
+
+		PythonShell.run('motors.py', options, (err, results) => {
+			if (err) {
+				res.status(404).end()
+				throw err
+			}
+			res.json(results)
+		})
+	}
+	
+})
+
 router.post('/pythonTest', (req, res, next) => {
 
 	let options = {

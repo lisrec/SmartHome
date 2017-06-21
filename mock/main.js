@@ -59,6 +59,25 @@ var deviceOn = (status) => {
 	})		
 }
 
+var runMotor = () => {
+	let data = {}
+	let devId = 1 * $('#onOffDevId').val()
+	let direction = $('#motorDirection').val()
+
+	data.direction = 'r'
+	if(direction == 'l')
+		data.direction = 'l'
+
+	$.ajax({
+		type: "POST",
+		url: `${serverAddres}/api/devices/motors/${devId}`,
+		data: data,
+		success: (data) => {
+			console.log("ok")
+		}
+	})	
+}
+
 var getStatus = () => {
 
 	let devId = 1 * $('#onOffDevId').val()
