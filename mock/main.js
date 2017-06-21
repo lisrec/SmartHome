@@ -1,4 +1,6 @@
-var serverAddres = "http://localhost:3300"
+var _port = 3300
+var _hostname = window.location.hostname || "localhost"
+var serverAddres = "http://" + _hostname + ":" + _port
 
 var createDivice = () => {
 
