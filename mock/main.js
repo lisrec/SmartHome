@@ -70,7 +70,7 @@ var runMotor = () => {
 
 	$.ajax({
 		type: "POST",
-		url: `${serverAddres}/api/devices/motors/${devId}`,
+		url: `${serverAddres}/api/devices/motor/${devId}`,
 		data: data,
 		success: (data) => {
 			console.log("ok")
