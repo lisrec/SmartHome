@@ -1,12 +1,10 @@
 server/node_modules
+server/config.js
+
 frontend/node_modules
 frontend/bower_components
+frontend/dist
 
-frontend/app/**/*.js
-frontend/app/**/*.js.map
-
-server/config.js
-frontend/app/config.ts
 
 .npm
 

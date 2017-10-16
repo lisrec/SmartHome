@@ -1,41 +1,28 @@
 {
-  "name": "Smarthome",
+  "name": "smarthome-front",
   "version": "1.0.0",
-  "description": "Projekt inzynierski",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "start": "webpack-dev-server",
+    "build": "webpack --progress -p"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@angular/common": "~2.4.0",
-    "@angular/compiler": "~2.4.0",
-    "@angular/core": "~2.4.0",
-    "@angular/forms": "~2.4.0",
-    "@angular/http": "~2.4.0",
-    "@angular/platform-browser": "~2.4.0",
-    "@angular/platform-browser-dynamic": "~2.4.0",
-    "@angular/router": "~3.4.0",
-    "angular-in-memory-web-api": "~0.2.4",
-    "core-js": "^2.4.1",
-    "crypto-js": "^3.1.9-1",
-    "rxjs": "5.0.1",
-    "systemjs": "0.19.40",
-    "zone.js": "^0.7.4"
-  },
+  "author": "Lisrec",
+  "license": "ISC",
   "devDependencies": {
-    "concurrently": "^3.1.0",
-    "lite-server": "^2.2.2",
-    "typescript": "~2.0.10",
-    "canonical-path": "0.0.2",
-    "http-server": "^0.9.0",
-    "tslint": "^3.15.1",
-    "lodash": "^4.16.4",
-    "rimraf": "^2.5.4",
-    "@types/node": "^6.0.46"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^3.7.1",
+    "webpack-dev-server": "^2.9.2"
   },
-  "repository": {}
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  }
 }
