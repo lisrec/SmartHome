@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import { MainComponent } from './components/Main'
 
-ReactDom.render((
-	<div>Test :)</div>
-), document.getElementById('root'))
+ReactDom.render(<MainComponent />, document.getElementById('root'))
