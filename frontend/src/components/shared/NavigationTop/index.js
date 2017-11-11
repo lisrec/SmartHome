@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Icon } from './../Icon'
 
@@ -16,6 +17,14 @@ export class NavigationTop extends React.Component {
 		}
 	}
 
+	getNavigationElementUser = () => {
+		return (
+			<span>
+				<Icon name="user" /> {this.props.user.login}
+			</span>
+			)
+	}
+
 	toggle = () => {
 		this.setState({expanded: !this.state.expanded})
 	}
@@ -26,7 +35,7 @@ export class NavigationTop extends React.Component {
 	}
 
 	render() {
-		return (
+		return (this.props.loggedIn) ? (
 			<Navbar 
 				inverse
 				fixedTop
@@ -43,25 +52,32 @@ export class NavigationTop extends React.Component {
 
 				<Navbar.Collapse>
 					<Nav>
-						<NavItem eventKey={1} componentClass={Link} href="/test" to="/test" onClick={this.close} active={location.pathname === '/test'}>
-							<Icon name="camera"/> Komponent1
+						<NavItem eventKey={1} componentClass={Link} href="/rooms" to="/rooms" onClick={this.close} active={location.pathname === '/rooms'}>
+							<Icon name="home"/> Pomieszczenia
 						</NavItem>
-						<NavItem eventKey={2} componentClass={Link} href="/test2" to="/test2" onClick={this.close} active={location.pathname === '/test2'}>
-							Komponent2
+						<NavItem eventKey={2} componentClass={Link} href="/devices" to="/devices" onClick={this.close} active={location.pathname === '/devices'}>
+							<Icon name="lightbulb-o"/> Urządzenia
 						</NavItem>
-						
-						<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-							<MenuItem eventKey={3.1}>Action</MenuItem>
-							<MenuItem eventKey={3.2}>Another action</MenuItem>
-							<MenuItem eventKey={3.3}>Something else here</MenuItem>
+					</Nav>
+					<Nav pullRight>
+						<NavDropdown eventKey={3} title={this.getNavigationElementUser()} id="navigation-user-menu">
+							<MenuItem eventKey={3.1} componentClass={Link} href="/myAccount" to="/myAccount" onClick={this.close} active={location.pathname === '/myAccount'}>Moje Konto</MenuItem>
+							<MenuItem eventKey={3.2} componentClass={Link} href="/settings" to="/settings" onClick={this.close} active={location.pathname === '/settings'}>Ustawienia</MenuItem>
 							<MenuItem divider />
-							<MenuItem eventKey={3.4}>Separated link</MenuItem>
+							<MenuItem eventKey={3.3} componentClass={Link} href="/login" to="/login" onClick={this.close && this.props.logOutAction}>Wyloguj</MenuItem>
 						</NavDropdown>
-
+						<NavItem eventKey={4} componentClass={Link} href="/lock" to="/lock" onClick={this.close} active={location.pathname === '/lock'}>
+							<Icon name="lock"/> Zablokuj
+						</NavItem>
 					</Nav>
 				</Navbar.Collapse>
-
 			</Navbar>
-		)
+		) : <div></div>
 	}
+}
+
+NavigationTop.propTypes = {
+	loggedIn: PropTypes.bool.isRequired,
+	logOutAction: PropTypes.func.isRequired,
+	user: PropTypes.object
 }
