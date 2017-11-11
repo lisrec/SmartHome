@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import { Link } from 'react-router-dom'
+import { Icon } from './../Icon'
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 
@@ -43,7 +44,7 @@ export class NavigationTop extends React.Component {
 				<Navbar.Collapse>
 					<Nav>
 						<NavItem eventKey={1} componentClass={Link} href="/test" to="/test" onClick={this.close} active={location.pathname === '/test'}>
-							Komponent1
+							<Icon name="camera"/> Komponent1
 						</NavItem>
 						<NavItem eventKey={2} componentClass={Link} href="/test2" to="/test2" onClick={this.close} active={location.pathname === '/test2'}>
 							Komponent2
