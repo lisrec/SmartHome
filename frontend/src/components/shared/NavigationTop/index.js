@@ -1,53 +1,66 @@
 import React from 'react'
-import { Component } from 'react'
 import ReactDom from 'react-dom'
+import { Link } from 'react-router-dom'
 
-import { withStyles } from 'material-ui/styles'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
-import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
-import MenuIcon from 'material-ui-icons/Menu'
-
-const styles = theme => ({
-	root: {
-		marginTop: theme.spacing.unit * 3,
-		width: '100%',
-	},
-	
-	flex: {
-		flex: 1,
-	},
-
-	menuButton: {
-		marginLeft: -12,
-		marginRight: 20,
-	},
-
-	loginButton: {
-		position: relative,
-		right: 10,
-	},
-})
+import NavigationStyles from './style.scss';
 
 export class NavigationTop extends React.Component {
+
+	constructor(props) {
+		super(props)
+		this.state = {
+			expanded: false
+		}
+	}
+
+	toggle = () => {
+		this.setState({expanded: !this.state.expanded})
+	}
+
+	close = () => {
+		if (this.state.expanded)
+			this.setState({expanded: false})
+	}
+
 	render() {
 		return (
-			<div className={styles.root}>
-				<AppBar position="fixed">
-					<Toolbar>
-						<IconButton className={styles.menuButton} color="contrast" aria-label="Menu">
-							<MenuIcon />
-						</IconButton>
-						<Typography type="title" color="inherit" className={styles.flex}>
-							Title
-						</Typography>
-						<Button color="contrast" className={styles.loginButton}>Login</Button>
-					</Toolbar>
-				</AppBar>
-			</div>
+			<Navbar 
+				inverse
+				fixedTop
+				staticTop
+				onToggle={this.toggle}
+				expanded={this.state.expanded} >
+				
+				<Navbar.Header>
+					<Navbar.Brand>
+						<a href="#">SmartHome</a>
+					</Navbar.Brand>
+					<Navbar.Toggle />
+				</Navbar.Header>
+
+				<Navbar.Collapse>
+					<Nav>
+						<NavItem eventKey={1} componentClass={Link} href="/test" to="/test" onClick={this.close} active={location.pathname === '/test'}>
+							Komponent1
+						</NavItem>
+						<NavItem eventKey={2} componentClass={Link} href="/test2" to="/test2" onClick={this.close} active={location.pathname === '/test2'}>
+							Komponent2
+						</NavItem>
+						
+						<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+							<MenuItem eventKey={3.1}>Action</MenuItem>
+							<MenuItem eventKey={3.2}>Another action</MenuItem>
+							<MenuItem eventKey={3.3}>Something else here</MenuItem>
+							<MenuItem divider />
+							<MenuItem eventKey={3.4}>Separated link</MenuItem>
+						</NavDropdown>
+
+					</Nav>
+				</Navbar.Collapse>
+
+			</Navbar>
 		)
 	}
 }

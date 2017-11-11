@@ -1,7 +1,11 @@
 import React from 'react'
-import { Component } from 'react'
 import ReactDom from 'react-dom'
-import { withStyles } from 'material-ui/styles'
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 import { NavigationTop } from '../shared/NavigationTop'
 import { Sidebar } from '../shared/Sidebar'
@@ -15,10 +19,12 @@ const styles = theme => ({
 export class MainComponent extends React.Component {
 	render() {
 		return (
-			<div className={styles.root}>
-				<NavigationTop />
-				<Sidebar />
-			</div>
+			<Router>
+				<div>
+					<NavigationTop />
+					<Route path="/test" component={Sidebar}/>
+				</div>
+			</Router>
 		)
 	}
 }
