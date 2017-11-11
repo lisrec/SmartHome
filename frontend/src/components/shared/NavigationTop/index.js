@@ -45,7 +45,7 @@ export class NavigationTop extends React.Component {
 				
 				<Navbar.Header>
 					<Navbar.Brand>
-						<a href="#">SmartHome</a>
+						<a href={null}>SmartHome</a>
 					</Navbar.Brand>
 					<Navbar.Toggle />
 				</Navbar.Header>

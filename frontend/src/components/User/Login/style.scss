@@ -1,0 +1,16 @@
+.loginContainer {
+	height: 100vh;
+	width: 100vw;
+	padding-top: 10vh;
+	background-color: #171717;
+
+	.loginImage {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	.loginButton {
+		float: right;
+		width: 50%;
+	}
+}
