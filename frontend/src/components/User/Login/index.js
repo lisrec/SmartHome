@@ -74,14 +74,26 @@ export class UserLogin extends React.Component {
 
 			fetch('http://127.0.0.1:3788/api/tokens', {
 				method: 'POST',
-				data: {
-					login: login,
-					pass: pass
-				}
+				headers: {'Content-Type':'application/json'},
+				body: JSON.stringify({
+					"login": login,
+					"pass": pass
+				})
 			}).then(resp => {
-				console.log(resp)
+
+				if (resp.status === 201)
+					return resp.json()
+				else 
+					return null
+			}).then(usr => {
+				console.log(usr)
+				if (!usr) {
+					this.setState({errorString: "Błąd logowania.", validationState: "error", formValues: {login: "", pass: ""}})
+				} else {
+					this.setState({errorString: "", validationState: null, formValues: {login: "", pass: ""}})
+					this.props.logInAction({login: usr.login})
+				}
 			})
-			this.props.logInAction({login: login})
 		}
 	}
 
@@ -117,6 +129,8 @@ export class UserLogin extends React.Component {
 										onChange={this.handleInput}
 										onKeyPress={this.handleInput} />
 								</FormGroup>
+
+								<span className="errMsg"> {this.state.errorString} </span>
 								
 								<Button className="loginButton" onClick={this.tryLogIn}>Zaloguj</Button>
 							</Panel>

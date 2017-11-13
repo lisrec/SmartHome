@@ -46,7 +46,7 @@ export class RoomsGrid extends React.Component {
 	render() {
 
 		return (
-				<div>
+				<div id="roomsGrid">
 					<PageHeader>Pokoje <small>zarządzanie pomieszczeniami
 					</small></PageHeader>
 					
