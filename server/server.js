@@ -1,14 +1,19 @@
-var express 	= require('express')
-var path 		= require('path')
-var bodyParser 	= require('body-parser')
-var morgan      = require('morgan')
-var jwt			= require('jsonwebtoken')
-var _ 			= require('lodash')
+const express 	   = require('express')
+const path 		   = require('path')
+const bodyParser   = require('body-parser')
+const morgan       = require('morgan')
+const jwt		   = require('jsonwebtoken')
+const _ 		   = require('lodash')
 
-var config = require('./config')
-var auth = require('./routes/auth')
-var devicesRouter = require('./routes/devices')
+const config = require('./config')
+const checkDB 	= require('./libs/updateDB.js')
+
+
+const tokensRouter = require('./routes/tokens')
+const devicesRouter = require('./routes/devices')
 //var route = require('./routes/route')
+
+
 
 
 var app = express()
@@ -32,13 +37,10 @@ app.use(function(req, res, next) {
 	}
 })
 
-app.use("/api/devices", devicesRouter)
 
-app.use('/api/auth', function(req,res,next) {
-		req.jwt = jwt
-		req.secret = app.get('superSecret')
-		next()
-	}, auth)
+app.use("/api/tokens", tokensRouter)
+
+
 
 app.use(function(req, res, next) {
 	var token = req.body.token || req.query.token || req.headers['x-access-token']
@@ -59,9 +61,7 @@ app.use(function(req, res, next) {
 	}
 })
 
-
-
-//app.use('/api/route', route)
+app.use("/api/devices", devicesRouter)
 
 app.get('*', function(req, res){
 	res.send('server')
@@ -79,8 +79,9 @@ process.on('SIGINT', () => {
     })
 })
 
-app.listen(_port, function(){
-	console.log('Server started on ' + _port)
-	devicesRouter.initArduino()
+app.listen(config.port, function(){
+	console.log('Server started on ',config.port)
+	checkDB.updateDB()
+	//devicesRouter.initArduino()
 })
 
