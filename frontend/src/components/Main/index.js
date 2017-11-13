@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { GuardRoute } from '../shared/GuardRoute'
+import { TokensApi } from '../../services/tokens'
 
 import MainStyle from './style.scss'
-
 
 import { NavigationTop } from '../shared/NavigationTop'
 import { Sidebar } from '../shared/Sidebar'
@@ -25,8 +26,11 @@ export class MainComponent extends React.Component {
 		this.timeToInactive = 1000 * 60 
 		this.inActiveTimer = null
 
+		this.TokensApi = new TokensApi()
+
 		//Load session/token user
 		this.state = {
+			redirectAfterLogIn: false,
 			informationScreen: false,
 			homeLocked: false,
 			loggedIn: false,
@@ -66,7 +70,10 @@ export class MainComponent extends React.Component {
     }
 
 	componentWillUpdate(nextProps, nextState) {
-
+		if (this.TokensApi.isAuthenticated()) {
+			const usr = this.TokensApi.getUser()
+			this.setState({loggedIn: true, user: usr})
+		}
 	}
 
 	logOut = () => {
@@ -75,7 +82,9 @@ export class MainComponent extends React.Component {
 	}
 
 	logIn = (user) => {
-		this.setState({loggedIn: true, user: user})
+		if (user) {
+			this.setState({loggedIn: true, user: user})
+		}
 	}
 
 	render() {
@@ -88,23 +97,21 @@ export class MainComponent extends React.Component {
 
 			<InfoScreen />
 
-		) : (this.state.loggedIn) ? ( //Showing application (User is logged In)
+		) : ( //Showing application (User is logged In)
 
 			<Router>
 				<div>
 					<NavigationTop loggedIn={this.state.loggedIn} user={this.state.user} logOutAction={this.logOut}/>
 					<div className="container mainContainer">
-						<Route path="/rooms" component={RoomsGrid} />
-						<Route path="/devices" component={Devices} />
-						<Route path="/room/:id" component={Room} />
+						<GuardRoute path="/" component={RoomsGrid} />
+						<GuardRoute path="/rooms" component={RoomsGrid} />
+						<GuardRoute path="/devices" component={Devices} />
+						<GuardRoute path="/room/:id" component={Room} />
 					</div>
+					<Route path="/login" component={UserLogin} />
 				</div>
 			</Router>
 
-		) : (
-			//Showing login screen (User is not logged In)
-			<UserLogin logInAction={this.logIn} />
 		)
-
 	}
 }

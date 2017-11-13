@@ -1,7 +1,10 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
+
+import { TokensApi } from '../../../services/tokens'
 
 import { Panel, Grid, Row, Col, FormGroup, 
 	FormControl, ControlLabel, Button, Image } from 'react-bootstrap'
@@ -21,7 +24,10 @@ export class UserLogin extends React.Component {
 		this.tryLogIn 		= this.tryLogIn.bind(this)
 		this.validate 		= this.validate.bind(this)
 
+		this.TokensApi = new TokensApi()
+
 		this.state = {
+			redirectLogin: false,
 			validationState: null,
 			errorString: "",
 			formValues: {
@@ -71,33 +77,27 @@ export class UserLogin extends React.Component {
 		const pass = this.state.formValues.pass
 
 		if ( this.validate(login, pass) ) {
-
-			fetch('http://127.0.0.1:3788/api/tokens', {
-				method: 'POST',
-				headers: {'Content-Type':'application/json'},
-				body: JSON.stringify({
-					"login": login,
-					"pass": pass
-				})
-			}).then(resp => {
-
-				if (resp.status === 201)
-					return resp.json()
-				else 
-					return null
-			}).then(usr => {
-				console.log(usr)
-				if (!usr) {
+			this.TokensApi.get(login, pass)
+				.then(usr => {
+					console.log(usr)
+					if (usr) {
+						this.setState({errorString: "", validationState: null, formValues: {login: "", pass: ""}})
+						this.setState({redirectLogin: true})
+					}
+				}).catch(e => {
+					console.log(e)
 					this.setState({errorString: "Błąd logowania.", validationState: "error", formValues: {login: "", pass: ""}})
-				} else {
-					this.setState({errorString: "", validationState: null, formValues: {login: "", pass: ""}})
-					this.props.logInAction({login: usr.login})
-				}
-			})
+				})
 		}
 	}
 
 	render() {
+		if (this.state.redirectLogin)
+			return (
+					<Redirect to="/" />
+				)
+
+
 		return (
 			<div className="loginContainer">
 				<Grid>
@@ -140,8 +140,4 @@ export class UserLogin extends React.Component {
 			</div>
 		)
 	}
-}
-
-UserLogin.propTypes = {
-	logInAction: PropTypes.func.isRequired
 }
