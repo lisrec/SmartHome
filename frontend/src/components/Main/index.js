@@ -29,10 +29,8 @@ export class MainComponent extends React.Component {
 		this.state = {
 			informationScreen: false,
 			homeLocked: false,
-			loggedIn: true,
-			user: {
-				login: 'admin'
-			}
+			loggedIn: false,
+			user: {}
 		}
 	}
 

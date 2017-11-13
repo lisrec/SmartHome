@@ -71,8 +71,16 @@ export class UserLogin extends React.Component {
 		const pass = this.state.formValues.pass
 
 		if ( this.validate(login, pass) ) {
-			//Make hash from pass
-			//Send info to server
+
+			fetch('http://127.0.0.1:3788/api/tokens', {
+				method: 'POST',
+				data: {
+					login: login,
+					pass: pass
+				}
+			}).then(resp => {
+				console.log(resp)
+			})
 			this.props.logInAction({login: login})
 		}
 	}

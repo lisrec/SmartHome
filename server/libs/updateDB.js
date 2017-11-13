@@ -16,7 +16,7 @@ var updateDB = function() {
 			} else {
 				version = resp
 				if(resp == '0.1') {
-/*					updateToVersion('version_0.2.sql', (err, resp) => {
+					/*updateToVersion('version_0.2.sql', (err, resp) => {
 						if(!err) updateDB()
 					})*/
 				}  else {
