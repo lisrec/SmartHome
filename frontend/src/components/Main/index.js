@@ -9,6 +9,9 @@ import { NavigationTop } from '../shared/NavigationTop'
 import { Sidebar } from '../shared/Sidebar'
 import { UserLogin } from '../User/Login'
 import { InfoScreen } from '../InfoScreen'
+import { RoomsGrid } from '../RoomsGrid'
+import { Room } from '../Room'
+import { Devices } from '../Devices'
 
 export class MainComponent extends React.Component {
 
@@ -19,15 +22,17 @@ export class MainComponent extends React.Component {
 		this.resetInactiveTimer = this.resetInactiveTimer.bind(this)
 
 		//Inactive config
-		this.timeToInactive = 1000 * 10 
+		this.timeToInactive = 1000 * 60 
 		this.inActiveTimer = null
 
 		//Load session/token user
 		this.state = {
 			informationScreen: false,
 			homeLocked: false,
-			loggedIn: false,
-			user: {}
+			loggedIn: true,
+			user: {
+				login: 'admin'
+			}
 		}
 	}
 
@@ -63,7 +68,7 @@ export class MainComponent extends React.Component {
     }
 
 	componentWillUpdate(nextProps, nextState) {
-		console.log(nextProps, nextState)
+
 	}
 
 	logOut = () => {
@@ -91,7 +96,9 @@ export class MainComponent extends React.Component {
 				<div>
 					<NavigationTop loggedIn={this.state.loggedIn} user={this.state.user} logOutAction={this.logOut}/>
 					<div className="container mainContainer">
-						<Route path="/rooms" component={InfoScreen}/>
+						<Route path="/rooms" component={RoomsGrid} />
+						<Route path="/devices" component={Devices} />
+						<Route path="/room/:id" component={Room} />
 					</div>
 				</div>
 			</Router>

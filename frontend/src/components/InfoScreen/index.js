@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import InfoScreenStyle from './style.scss'
 
 export class InfoScreen extends React.Component {
 
@@ -28,7 +29,9 @@ export class InfoScreen extends React.Component {
 	render() {
 
 		return (
-				<h1> Information screen ({this.state.counter} pobranych danych)</h1>
+				<div className="screenInfoContainer">
+					<h1> Information screen ({this.state.counter} pobranych danych)</h1>
+				</div>
 			)
 
 	}
