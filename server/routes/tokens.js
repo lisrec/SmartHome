@@ -23,9 +23,9 @@ router.get('/checkToken', (req, res, next) => {
 	}
 })
 
-/*=============================
-=            POSTs            =
-=============================*/
+ /*=============================
+ =            POSTs            =
+ =============================*/
 
 router.post('/', (req, res, next) => {
 	let login = req.body.login
@@ -36,7 +36,7 @@ router.post('/', (req, res, next) => {
 	}
 	if (login == signUser.login && pass == signUser.pass) {
 		let token = jwt.sign(signUser, secret, {
-			expiresIn : ExpirationTime[user.user_type]
+			expiresIn : 60 * 60 * 24 
 		});
 		res.status(201).json({
 			token: token,
@@ -49,10 +49,9 @@ router.post('/', (req, res, next) => {
 	
 })
 
-
-/*============================
-=            PUTs            =
-============================*/
+ /*============================
+ =            PUTs            =
+ ============================*/
 
 
 
