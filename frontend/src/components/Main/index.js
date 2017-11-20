@@ -24,7 +24,7 @@ class Main extends React.Component {
 
 		let currentShow = (this.props.appState === consts.STATE_ACTIVE) ? (
 				<div key="mainRouter">
-					<NavigationTop user={this.props.user} />
+					<NavigationTop user={this.props.user} alarmCallbacks={this.props.alarmCallbacks} />
 					<div className="container mainContainer">
 						<Route path="/rooms" render={ (props) => <RoomsGrid {...props} rooms={this.props.rooms} roomCallbacks={this.props.roomCallbacks}/> } />
 						<Route path="/devices" render={ (props) => <Devices {...props} devices={this.props.devices} deviceCallbacks={this.props.deviceCallbacks} /> } />
@@ -59,7 +59,8 @@ Main.propTypes = {
 	rooms: PropTypes.array,
 	devices: PropTypes.array,
 	roomCallbacks: PropTypes.object,
-	deviceCallbacks: PropTypes.object
+	deviceCallbacks: PropTypes.object,
+	alarmCallbacks: PropTypes.object
 }
 
 export default Main

@@ -68,7 +68,7 @@ class NavigationTop extends React.Component {
 							<MenuItem eventKey={3.3} componentClass={Link} href="/login" to="/login" onClick={this.close}>Wyloguj</MenuItem>
 						</NavDropdown>
 
-						<NavItem eventKey={4} componentClass={Link} href="/lock" to="/lock" onClick={this.close} active={location.pathname === '/lock'}>
+						<NavItem eventKey={4} onClick={this.close && this.props.alarmCallbacks.handleActiveAlarm}>
 							<Icon name="lock"/> Zablokuj
 						</NavItem>
 					</Nav>
@@ -80,7 +80,10 @@ class NavigationTop extends React.Component {
 }
 
 NavigationTop.propTypes = {
-	user: PropTypes.object
+	user: PropTypes.object,
+	alarmCallbacks: PropTypes.shape({
+		handleActiveAlarm: PropTypes.func.isRequire
+	})
 }
 
 export default NavigationTop

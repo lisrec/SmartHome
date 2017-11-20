@@ -17,6 +17,7 @@ class Devices extends React.Component {
 }
 
 Devices.propTypes = {
+	roomId: PropTypes.number,
 	devices: PropTypes.array,
 	deviceCallbacks: PropTypes.object
 }

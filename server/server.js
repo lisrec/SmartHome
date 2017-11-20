@@ -13,6 +13,9 @@ const tokensRouter = require('./routes/tokens')
 const devicesRouter = require('./routes/devices')
 //var route = require('./routes/route')
 
+//For testing purpose
+let alarmStatus = false
+
 var app = express()
 
 var _port = 3376
@@ -59,6 +62,17 @@ app.use(function(req, res, next) {
 })
 
 app.use("/api/devices", devicesRouter)
+
+
+//For testing purpose
+app.get("/api/alarm/:state", function(req, res) {
+	let state = (req.params.state) ? true : false
+	alarmStatus = state
+	res.status(200).json({alarmStatus: alarmStatus})
+})
+app.get("/api/alarm", function(req, res) {
+	res.status(200).json({alarmStatus: alarmStatus})
+})
 
 app.get('*', function(req, res){
 	res.send('server')

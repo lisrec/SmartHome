@@ -27,7 +27,7 @@ export const checkToken = () => {
 
 		fetch(`${API_URL}/api/tokens/checkToken`, {
 			headers: API_HEADER(),
-			method: 'get'
+			method: 'GET'
 		})
 			.then(resp => {
 				if (resp.status == 401) {
@@ -74,5 +74,39 @@ export const getToken = (login, pass) => {
 export const getRooms = () => {
 	return new Promise((resolve, reject) => {
 		resolve(roomsFakeData)
+	})
+}
+
+export const checkAlarmState = () => {
+	return new Promise((resolve, reject) => {
+		fetch(`${API_URL}/api/alarm`, {
+			headers: API_HEADER(),
+			method: 'GET'
+		})
+			.then(resp => resp.json())
+			.then(body => {
+				const alarmStatus = (body.alarmStatus) ? true : false
+				resolve(alarmStatus)
+			})
+			.catch(e => { 
+				reject("Server error.", e) 
+			})
+	})
+}
+
+export const updateAlarmState = (newState) => {
+	return new Promise((resolve, reject) => {
+		fetch(`${API_URL}/api/alarm/${newState}`, {
+			headers: API_HEADER(),
+			method: 'GET'
+		})
+			.then(resp => resp.json())
+			.then(body => {
+				const alarmStatus = (body.alarmStatus) ? true : false
+				resolve(alarmStatus)
+			})
+			.catch(e => { 
+				reject("Server error.", e) 
+			})
 	})
 }
