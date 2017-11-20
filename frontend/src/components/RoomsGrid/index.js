@@ -24,12 +24,12 @@ class RoomPanel extends React.Component {
 									{roomObj.name}
 								</div>
 							</div>
-						</Link>
-
-						<div className="body">
 							<div className="device__count">
 								{deviceCount}
 							</div>
+						</Link>
+						<div className="body">
+							
 						</div>
 					</Panel>
 				</Col>

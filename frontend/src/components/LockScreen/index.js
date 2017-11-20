@@ -30,8 +30,11 @@ class LockScreen extends React.Component {
 		super(props)
 
 		this.handleButtonPin = this.handleButtonPin.bind(this)
+		this.handleShowPin = this.handleShowPin.bind(this)
+
 		this.state = {
-			pinCode: ""
+			pinCode: "",
+			showingKeys: false
 		}
 	}
 
@@ -40,12 +43,21 @@ class LockScreen extends React.Component {
 		this.setState({pinCode: nextPinCode})
 	}
 
+	handleShowPin(show) {
+		let nextState = (show) ? true : false
+		this.setState({showingKeys: nextState})
+	}
+
 	render() {
 
-		return (
-				<div className="lockScreen__wrapper">
-					<h1>LOCK SCREEN</h1>
-					<input className="pinHolder" value={this.state.pinCode} />
+		let showingContent = (this.state.showingKeys) ? (
+				<div>
+					<input 
+						type="password" 
+						className="pinHolder" 
+						value={this.state.pinCode} />
+						
+					<br />
 					<div className="keyboard">
 						<KeyboardButton buttonValue="1" clickHandler={this.handleButtonPin} />
 						<KeyboardButton buttonValue="2" clickHandler={this.handleButtonPin} />
@@ -61,6 +73,16 @@ class LockScreen extends React.Component {
 						<br />
 						<KeyboardButton buttonValue="0" clickHandler={this.handleButtonPin} />
 					</div>
+				</div>
+			) : (
+				<h1 onClick={this.handleShowPin.bind(null, true)}>
+					<i className="fa fa-4x fa-lock" aria-hidden="true"></i>
+				</h1>
+			)
+
+		return (
+				<div className="lockScreen__wrapper">
+					{showingContent}
 				</div>
 			)
 
