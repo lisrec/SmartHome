@@ -25,6 +25,7 @@ class MainContainer extends React.Component {
 		super(props)
 
 		this.handleActiveAlarm = this.handleActiveAlarm.bind(this)
+		this.handleCheckNewAlarmState = this.handleCheckNewAlarmState.bind(this)
 
 		this.resetInactiveTimer = this.resetInactiveTimer.bind(this)
 		this.timeToInactive = 1000 * 60
@@ -82,13 +83,19 @@ class MainContainer extends React.Component {
 			this.setState({appState: consts.STATE_ACTIVE})
 	}
 
+	handleCheckNewAlarmState() {
+		checkAlarmState()
+			.then(alarmStatus => { this.setState({alarmActive: alarmStatus}) })
+			.catch(e => { console.log(e); this.props.history.push('/login', null) })
+	}
+
 	handleActiveAlarm() {
 		this.setState({alarmActive: true})
 	}
 
 	render() {
 		return (this.state.alarmActive) ? (
-			<LockScreen />
+			<LockScreen handleCheckNewAlarmState={this.handleCheckNewAlarmState} />
 		) : (
 			<Main appState={this.state.appState}
 				user={this.state.user}

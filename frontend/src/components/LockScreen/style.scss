@@ -24,7 +24,7 @@
 		margin-bottom: 30px;
 		width: 200px;
 		height: 40px;
-		font-size: 36px;
+		font-size: 50px;
 		text-align: center;
 		color: black;
 	}
@@ -44,4 +44,56 @@
 			margin: 5px;
 		}
 	}
+
+	.keyboard__footer {
+		margin: 10px auto;
+		width: 600px;
+		text-align: center;
+		display: inline-block;
+
+		button {
+			display: inline-block;
+			font-size: 26px;
+			width: 150px;
+			height: 70px;
+			margin: 0 5%;
+			border: none;
+		}
+
+		.keyboard__footer--cancel {
+			background-color: rgba(60, 60, 60, 0.9);
+			color: white;
+		}
+
+		.keyboard__footer--confirm {
+			background-color: rgba(60, 220, 60, 0.8);
+			color: #EEE;
+		}
+	}
+}
+
+.padlockTransition-enter {
+	transform: translateX(-500px);
+	opacity: 0;
+}
+
+.padlockTransition-enter.padlockTransition-enter-active {
+	transform: translateX(0px);
+	opacity: 1;
+	transition: all .3s ease-in;
+	-webkit-transition: all .5s ease-in;
+	transition-delay: .3s;
+	-webkit-transition-delay: .5s;
+}
+
+.padlockTransition-leave {
+	transform: translateX(0px);
+	opacity: 1;
+}
+
+.padlockTransition-leave.padlockTransition-leave-active {
+	transform: translateX(500px);
+	opacity: 0;
+	transition: all .3s ease-out;
+	-webkit-transition: all .3s ease-out;
 }

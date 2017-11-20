@@ -66,7 +66,7 @@ app.use("/api/devices", devicesRouter)
 
 //For testing purpose
 app.get("/api/alarm/:state", function(req, res) {
-	let state = (req.params.state) ? true : false
+	let state = (req.params.state == "true") ? true : false
 	alarmStatus = state
 	res.status(200).json({alarmStatus: alarmStatus})
 })

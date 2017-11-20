@@ -2,7 +2,9 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import PropTypes from 'prop-types'
 import update from 'react-addons-update'
+import { CSSTransitionGroup } from 'react-transition-group'
 import LockScreenStyle from './style.scss'
+import { updateAlarmState } from '../../services/ApiService'
 
 class KeyboardButton extends React.Component {
 
@@ -31,6 +33,7 @@ class LockScreen extends React.Component {
 
 		this.handleButtonPin = this.handleButtonPin.bind(this)
 		this.handleShowPin = this.handleShowPin.bind(this)
+		this.handleTryUnlock = this.handleTryUnlock.bind(this)
 
 		this.state = {
 			pinCode: "",
@@ -38,9 +41,21 @@ class LockScreen extends React.Component {
 		}
 	}
 
+	handleTryUnlock() {
+		const pin = this.state.pinCode
+		if (pin == "7436") {
+			updateAlarmState(false)
+				.then(alarmStatus => { this.props.handleCheckNewAlarmState() })
+				.catch(e => { console.log(e) })
+		} else {
+			//TODO ALARM
+		}
+	}
+
 	handleButtonPin(val) {
 		let nextPinCode = this.state.pinCode + val
-		this.setState({pinCode: nextPinCode})
+		if (_.size(nextPinCode) <= 8)
+			this.setState({pinCode: nextPinCode})
 	}
 
 	handleShowPin(show) {
@@ -51,12 +66,12 @@ class LockScreen extends React.Component {
 	render() {
 
 		let showingContent = (this.state.showingKeys) ? (
-				<div>
+				<div key="keyboard">
 					<input 
 						type="password" 
 						className="pinHolder" 
 						value={this.state.pinCode} />
-						
+
 					<br />
 					<div className="keyboard">
 						<KeyboardButton buttonValue="1" clickHandler={this.handleButtonPin} />
@@ -73,20 +88,41 @@ class LockScreen extends React.Component {
 						<br />
 						<KeyboardButton buttonValue="0" clickHandler={this.handleButtonPin} />
 					</div>
+					<br />
+					<div className="keyboard__footer">
+						<button className="keyboard__footer--cancel" onClick={this.handleShowPin.bind(null,false)}>Anuluj</button>
+						<button className="keyboard__footer--confirm" onClick={this.handleTryUnlock}>Potwierdź</button>
+					</div>
 				</div>
 			) : (
-				<h1 onClick={this.handleShowPin.bind(null, true)}>
+				<h1 key="padlock" onClick={this.handleShowPin.bind(null, true)}>
 					<i className="fa fa-4x fa-lock" aria-hidden="true"></i>
 				</h1>
 			)
 
 		return (
 				<div className="lockScreen__wrapper">
-					{showingContent}
+
+					<CSSTransitionGroup
+						transitionName="padlockTransition"
+						transitionAppear={false}
+						transitionEnter={true}
+						transitionLeave={true}
+						transitionAppearTimeout={350}
+						transitionEnterTimeout={350}
+						transitionLeaveTimeout={350} >
+
+						{showingContent}
+
+					</CSSTransitionGroup>
 				</div>
 			)
 
 	}
+}
+
+LockScreen.propTypes = {
+	handleCheckNewAlarmState: PropTypes.func
 }
 
 export default LockScreen
