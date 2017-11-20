@@ -23,35 +23,37 @@ class InfoScreen extends React.Component {
 		const API_PROXY = 'https://cors-anywhere.herokuapp.com/'
 		const API_URL = `https://api.darksky.net/forecast/${API_KEY}/${API_CORDS}/?lang=pl&units=ca&exclude=hourly,minutely`
 
-		fetch(API_PROXY + API_URL)
-			.then(resp => resp.json())
-			.then(forecast => {
-				try {
-					let forecastObject = (typeof forecast === 'string') ? JSON.parse(forecast) : forecast
-					let nextState = {
-						currently: forecastObject.currently,
-						daily: forecastObject.daily,
-						alerts: (forecastObject.alerts || [])
-					}
-					//console.log(nextState)
-					this.setState({forecast: nextState})
-				} catch (e) {
-					//console.log('Error while parsing JSON data.')
-				}
-			})
+		console.log(API_PROXY + API_URL)
 
-		// try {
-		// 	let forecastJson = JSON.parse(staticData)
-		// 	let nextState = {
-		// 		currently: forecastJson.currently,
-		// 		daily: forecastJson.daily,
-		// 		alerts: (forecastJson.alerts || [])
-		// 	}
-		// 	console.log(nextState)
-		// 	this.setState({forecast: nextState})
-		// } catch (e) { 
-		// 	console.log(e) 
-		// }
+		// fetch(API_PROXY + API_URL)
+		// 	.then(resp => resp.json())
+		// 	.then(forecast => {
+		// 		try {
+		// 			let forecastObject = (typeof forecast === 'string') ? JSON.parse(forecast) : forecast
+		// 			let nextState = {
+		// 				currently: forecastObject.currently,
+		// 				daily: forecastObject.daily,
+		// 				alerts: (forecastObject.alerts || [])
+		// 			}
+		// 			//console.log(nextState)
+		// 			this.setState({forecast: nextState})
+		// 		} catch (e) {
+		// 			//console.log('Error while parsing JSON data.')
+		// 		}
+		// 	})
+
+		try {
+			let forecastJson = JSON.parse(staticData)
+			let nextState = {
+				currently: forecastJson.currently,
+				daily: forecastJson.daily,
+				alerts: (forecastJson.alerts || [])
+			}
+			console.log(nextState)
+			this.setState({forecast: nextState})
+		} catch (e) { 
+			console.log(e) 
+		}
 	}
 
 	componentDidMount() {
