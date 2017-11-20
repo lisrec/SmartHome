@@ -1,6 +1,6 @@
 import config from '../utils/config'
 import consts from '../utils/constants'
-import { roomsFakeData } from '../assets/fakeData/data'
+import { roomsFakeData, devicesFakeData } from '../assets/fakeData/data'
 
 const API_URL = `http://127.0.0.1:3376`
 
@@ -16,7 +16,7 @@ function handleErrors(resp) {
 	return resp
 }
 
-export const blindCheckToken = () => (LOCAL_TOKEN()) ? true : false
+export const blindCheckToken = () => { return (LOCAL_TOKEN()) ? true : false }
 
 export const checkToken = () => {
 	return new Promise((resolve, reject) => {
@@ -74,6 +74,12 @@ export const getToken = (login, pass) => {
 export const getRooms = () => {
 	return new Promise((resolve, reject) => {
 		resolve(roomsFakeData)
+	})
+}
+
+export const geDevices = () => {
+	return new Promise((resolve, reject) => {
+		resolve(devicesFakeData)
 	})
 }
 

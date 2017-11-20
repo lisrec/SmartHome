@@ -28,7 +28,7 @@ class Main extends React.Component {
 					<div className="container mainContainer">
 						<Route path="/rooms" render={ (props) => <RoomsGrid {...props} rooms={this.props.rooms} roomCallbacks={this.props.roomCallbacks}/> } />
 						<Route path="/devices" render={ (props) => <Devices {...props} devices={this.props.devices} deviceCallbacks={this.props.deviceCallbacks} /> } />
-						<Route path="/room/:id"  render={ (props) => <Room {...props} rooms={this.props.rooms} roomCallbacks={this.props.roomCallbacks}/> } />
+						<Route path="/room/:id"  render={ (props) => <Room {...props} rooms={this.props.rooms} devices={this.props.devices} roomCallbacks={this.props.roomCallbacks}/> } />
 						<Route exact path="/" render={ (props) => <RoomsGrid {...props} rooms={this.props.rooms} roomCallbacks={this.props.roomCallbacks}/> } />
 					</div>
 				</div>

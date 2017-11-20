@@ -5,18 +5,35 @@ export const roomsFakeData = [
 		img: 'http://www.ekspertbudowlany.pl/images/photos/24/3056/__b_oswietplenie-1.jpg'
 	},
 	{
-		id: 22,
+		id: 2,
 		name: 'Kuchania',
 		img: 'https://img.shmbk.pl/rimgsph/742948_e396c2c9-8244-4c6f-9838-1741a3dba52c_max_900_1200_kuchnia-kuchnia-styl-nowoczesny.jpg'
+	}
+] 
+
+export const devicesFakeData = [
+	{
+		id: 1,
+		roomId: 1,
+		name: 'Lampa',
+		type: 'power'
+	},
+	{
+		id: 2,
+		roomId: 1,
+		name: 'Ledy',
+		type: 'led'
 	},
 	{
 		id: 3,
-		name: 'Kibel',
-		img: 'https://img1.esquire.pl/W1/a/16/09/zlota-toaleta-w-muzeum-guggenheima_57ea8195.jpeg'
+		roomId: 1,
+		name: 'Rolety',
+		type: 'toggler'
 	},
 	{
 		id: 4,
-		name: 'Cartman',
-		img: 'https://vignette.wikia.nocookie.net/southpark/images/0/0d/1a.jpg/revision/latest/scale-to-width-down/310?cb=20100826182516'
+		roomId: 2,
+		name: 'Express do kawy',
+		type: 'power'
 	}
 ] 

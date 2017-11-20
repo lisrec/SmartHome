@@ -15,7 +15,8 @@ import {
 	checkAlarmState,
 	updateAlarmState,
 	checkToken, 
-	getRooms } from '../../services/ApiService'
+	getRooms,
+	geDevices } from '../../services/ApiService'
 
 
 class MainContainer extends React.Component {
@@ -53,6 +54,10 @@ class MainContainer extends React.Component {
 
 		getRooms()
 			.then(rooms => { this.setState({rooms: rooms}) })
+			.catch(e => console.log(e))
+
+		geDevices()
+			.then(devices => { this.setState({devices: devices}) })
 			.catch(e => console.log(e))
 
 		addEventUserActive(this._handleActivity)
