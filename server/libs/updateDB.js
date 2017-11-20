@@ -15,7 +15,7 @@ var updateDB = function() {
 				return
 			} else {
 				version = resp
-				if(resp == '0.1') {
+				if(resp == undefined) {
 					/*updateToVersion('version_0.2.sql', (err, resp) => {
 						if(!err) updateDB()
 					})*/

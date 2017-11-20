@@ -1,18 +1,12 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import PropTypes from 'prop-types'
 import RoomsStyle from './style.scss'
 import { Link } from 'react-router-dom'
 import { PageHeader, Panel, Image, Grid, Row, Col } from 'react-bootstrap'
 import _ from 'lodash'
 
-import { roomsFakeData } from '../../assets/fakeData/data'
-
-export class RoomsGrid extends React.Component {
-
-	constructor(props) {
-		super(props)
-		this.state = {}
-	}
+class RoomsGrid extends React.Component {
 
 	renderRoomPanel(roomObj) {
 		return (
@@ -52,7 +46,7 @@ export class RoomsGrid extends React.Component {
 					
 					<Grid>
 						<Row>
-							{this.renderGridRooms(roomsFakeData)}
+							{this.renderGridRooms(this.props.rooms)}
 						</Row>
 					</Grid>
 				</div>
@@ -60,3 +54,10 @@ export class RoomsGrid extends React.Component {
 
 	}
 }
+
+RoomsGrid.propTypes = {
+	rooms: PropTypes.array,
+	roomCallbacks: PropTypes.object
+}
+
+export default RoomsGrid

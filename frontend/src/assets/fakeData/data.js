@@ -5,7 +5,7 @@ export const roomsFakeData = [
 		img: 'http://www.ekspertbudowlany.pl/images/photos/24/3056/__b_oswietplenie-1.jpg'
 	},
 	{
-		id: 2,
+		id: 22,
 		name: 'Kuchania',
 		img: 'https://img.shmbk.pl/rimgsph/742948_e396c2c9-8244-4c6f-9838-1741a3dba52c_max_900_1200_kuchnia-kuchnia-styl-nowoczesny.jpg'
 	},

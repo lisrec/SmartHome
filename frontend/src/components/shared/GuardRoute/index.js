@@ -1,14 +1,13 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import { Route, Redirect } from 'react-router-dom'
-import { TokensApi } from '../../../services/tokens'
+import { blindCheckToken } from '../../../services/ApiService'
 
 export const GuardRoute = ({ component: Component, ...rest }) => {
-	let tokensApi = new TokensApi()
 
 	return (
 		<Route {...rest} render={props => (
-			tokensApi.isAuthenticated() ? (
+			blindCheckToken() ? (
 				<Component {...props} />
 			) : (
 				<Redirect to={{ pathname: '/login' }} />

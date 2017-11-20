@@ -13,12 +13,9 @@ const tokensRouter = require('./routes/tokens')
 const devicesRouter = require('./routes/devices')
 //var route = require('./routes/route')
 
-
-
-
 var app = express()
 
-var _port = 3300
+var _port = 3376
 
 app.set('superSecret', config.secret)
 
@@ -79,8 +76,8 @@ process.on('SIGINT', () => {
     })
 })
 
-app.listen(config.port, function(){
-	console.log('Server started on ',config.port)
+app.listen(_port, function(){
+	console.log('Server started on ', _port)
 	checkDB.updateDB()
 	//devicesRouter.initArduino()
 })

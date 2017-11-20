@@ -9,7 +9,7 @@ const group_names = ['root','admin','security','renter','observer']
 ===========================*/
 
 router.get('/checkToken', (req, res, next) => {
-	let token =  req.headers['x-access-token']
+	let token = req.headers['x-access-token']
 	if (token){
 		jwt.verify(token, secret, (err, decoded) => {
 			if (err){
@@ -43,7 +43,7 @@ router.post('/', (req, res, next) => {
 			signUser: signUser
 		})
 	} else {
-		res.status(401).end()
+		res.status(401).json({token: null}).end()
 	}
 
 	

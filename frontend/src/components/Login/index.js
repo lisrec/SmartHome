@@ -4,18 +4,18 @@ import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
 
-import { TokensApi } from '../../../services/tokens'
-
+import consts from '../../utils/constants'
+import { checkToken, getToken } from '../../services/ApiService'
+import UserLoginStyles from './style.scss'
 import { Panel, Grid, Row, Col, FormGroup, 
 	FormControl, ControlLabel, Button, Image } from 'react-bootstrap'
 
-import UserLoginStyles from './style.scss'
 
 const loginPanelTitle = (
 	<h2>Smart Home</h2>
 )
 
-export class UserLogin extends React.Component {
+class UserLogin extends React.Component {
 
 	constructor(props) {
 		super(props)
@@ -23,8 +23,6 @@ export class UserLogin extends React.Component {
 		this.handleInput 	= this.handleInput.bind(this)
 		this.tryLogIn 		= this.tryLogIn.bind(this)
 		this.validate 		= this.validate.bind(this)
-
-		this.TokensApi = new TokensApi()
 
 		this.state = {
 			redirectLogin: false,
@@ -35,6 +33,10 @@ export class UserLogin extends React.Component {
 				pass: ""
 			}
 		}
+	}
+
+	componentDidMount() {
+		localStorage.removeItem(consts.LOCALSTORAGE_TOKEN)
 	}
 
 	handleInput(e) {
@@ -77,26 +79,21 @@ export class UserLogin extends React.Component {
 		const pass = this.state.formValues.pass
 
 		if ( this.validate(login, pass) ) {
-			this.TokensApi.get(login, pass)
-				.then(usr => {
-					console.log(usr)
-					if (usr) {
+			getToken(login, pass)
+				.then(resp => {
+					if (resp.token) {
+						localStorage.setItem(consts.LOCALSTORAGE_TOKEN, resp.token)
 						this.setState({errorString: "", validationState: null, formValues: {login: "", pass: ""}})
-						this.setState({redirectLogin: true})
+						this.props.history.push('/', null)
 					}
-				}).catch(e => {
-					console.log(e)
+				})
+				.catch(e => {
 					this.setState({errorString: "Błąd logowania.", validationState: "error", formValues: {login: "", pass: ""}})
 				})
 		}
 	}
 
 	render() {
-		if (this.state.redirectLogin)
-			return (
-					<Redirect to="/" />
-				)
-
 
 		return (
 			<div className="loginContainer">
@@ -112,27 +109,27 @@ export class UserLogin extends React.Component {
 
 								<Image className="loginImage" src="http://via.placeholder.com/200x100" rounded />
 
-								<FormGroup controlId="signup_login" validationState={this.state.validationState}>
-									<FormControl 
-										type="text" 
-										placeholder="Login" 
-										value={this.state.formValues.login} 
-										onChange={this.handleInput}
-										onKeyPress={this.handleInput} />
-								</FormGroup>
-								
-								<FormGroup controlId="signup_pass" validationState={this.state.validationState}>
-									<FormControl 
-										type="password" 
-										placeholder="Password" 
-										value={this.state.formValues.pass} 
-										onChange={this.handleInput}
-										onKeyPress={this.handleInput} />
-								</FormGroup>
+									<FormGroup controlId="signup_login" validationState={this.state.validationState}>
+										<FormControl 
+											type="text" 
+											placeholder="Login"
+											value={this.state.formValues.login} 
+											onChange={this.handleInput}
+											onKeyPress={this.handleInput} />
+									</FormGroup>
+									
+									<FormGroup controlId="signup_pass" validationState={this.state.validationState}>
+										<FormControl 
+											type="password" 
+											placeholder="Password" 
+											value={this.state.formValues.pass} 
+											onChange={this.handleInput}
+											onKeyPress={this.handleInput} />
+									</FormGroup>
 
-								<span className="errMsg"> {this.state.errorString} </span>
-								
-								<Button className="loginButton" onClick={this.tryLogIn}>Zaloguj</Button>
+									<span className="errMsg"> {this.state.errorString} </span>
+									
+									<Button className="loginButton" onClick={this.tryLogIn}>Zaloguj</Button>
 							</Panel>
 						</Col>
 					</Row>
@@ -141,3 +138,5 @@ export class UserLogin extends React.Component {
 		)
 	}
 }
+
+export default UserLogin
