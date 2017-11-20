@@ -6,11 +6,16 @@ import { Link } from 'react-router-dom'
 import { PageHeader, Panel, Image, Grid, Row, Col } from 'react-bootstrap'
 import _ from 'lodash'
 
-class RoomsGrid extends React.Component {
+class RoomPanel extends React.Component {
 
-	renderRoomPanel(roomObj) {
+	render() {
+		let roomObj = this.props.room
+		let deviceCount = _(this.props.devices)
+			.filter(dev => dev.roomId == roomObj.id)
+			.size()
+
 		return (
-				<Col key={roomObj.id} xs={12} sm={6} md={4} lg={4}>
+				<Col xs={12} sm={6} md={4} lg={4}>
 					<Panel>
 						<Link to={"/room/" + roomObj.id} >
 							<div className="crop-img">
@@ -22,19 +27,25 @@ class RoomsGrid extends React.Component {
 						</Link>
 
 						<div className="body">
-							<p>
-								Jakieś info z dupy.
-							</p>
+							<div className="device__count">
+								{deviceCount}
+							</div>
 						</div>
 					</Panel>
 				</Col>
 			)
 	}
+}
+
+RoomPanel.propTypes = {
+	devices: PropTypes.array,
+	room: PropTypes.object
+}
+
+class RoomsGrid extends React.Component {
 
 	renderGridRooms(roomsArray) {
-		return _.map(roomsArray, (room) => {
-			return this.renderRoomPanel(room)
-		})
+		return _.map(roomsArray, room => <RoomPanel key={room.id} room={room} devices={this.props.devices} />)
 	}
 
 	render() {
@@ -56,6 +67,7 @@ class RoomsGrid extends React.Component {
 }
 
 RoomsGrid.propTypes = {
+	devices: PropTypes.array,
 	rooms: PropTypes.array,
 	roomCallbacks: PropTypes.object
 }

@@ -4,6 +4,7 @@
 
 		.panel-body {
 			padding: 0px;
+			position: relative;
 
 			.crop-img {
 				width: 100%;
@@ -42,11 +43,17 @@
 				}
 			}
 
-			
-
-			.body {
-				padding: 5px;
-				height: 50px;
+			.device__count {
+				position: absolute;
+				right: 0; top: 0;
+				background-color: rgba(0,0,0, 0.5);
+				width: 44px;
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				font-size: 26px;
+				color: #DDD;
+				border-bottom-left-radius: 8px;
 			}
 		}
 	}
