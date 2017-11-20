@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 
-export class Room extends React.Component {
+class Room extends React.Component {
 
 	render() {
 
@@ -25,3 +25,5 @@ export class Room extends React.Component {
 Room.propTypes = {
 	rooms: PropTypes.array
 }
+
+export default Room

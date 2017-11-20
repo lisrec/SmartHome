@@ -1,34 +1,55 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import PropTypes from 'prop-types'
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { CSSTransitionGroup } from 'react-transition-group'
+
+import { BrowserRouter as Router, 
+	Route, 
+	Link, 
+	Redirect } from 'react-router-dom'
+
+import consts from '../../utils/constants'
+import { checkToken } from '../../services/ApiService'
 
 import MainStyle from './style.scss'
-import consts from '../../utils/constants'
-import { GuardRoute } from '../shared/GuardRoute'
-import { checkToken } from '../../services/ApiService'
-import { NavigationTop } from '../shared/NavigationTop'
-import { Sidebar } from '../shared/Sidebar'
+import Room from '../Room'
+import Devices from '../Devices'
+import NavigationTop from '../shared/NavigationTop'
 import InfoScreen from '../InfoScreen'
 import RoomsGrid from '../RoomsGrid'
-import { Room } from '../Room'
-import { Devices } from '../Devices'
 
 class Main extends React.Component {
 
 	render() {
 
-		return (this.props.appState === consts.STATE_ACTIVE) ? (
-				<div>
+		let currentShow = (this.props.appState === consts.STATE_ACTIVE) ? (
+				<div key="mainRouter">
 					<NavigationTop user={this.props.user} />
 					<div className="container mainContainer">
 						<Route path="/rooms" render={ (props) => <RoomsGrid {...props} rooms={this.props.rooms} roomCallbacks={this.props.roomCallbacks}/> } />
-						<Route path="/devices" component={Devices} />
+						<Route path="/devices" render={ (props) => <Devices {...props} devices={this.props.devices} deviceCallbacks={this.props.deviceCallbacks} /> } />
 						<Route path="/room/:id"  render={ (props) => <Room {...props} rooms={this.props.rooms} roomCallbacks={this.props.roomCallbacks}/> } />
-						<Route exact path="/" component={RoomsGrid} />
+						<Route exact path="/" render={ (props) => <RoomsGrid {...props} rooms={this.props.rooms} roomCallbacks={this.props.roomCallbacks}/> } />
 					</div>
 				</div>
-			) : <InfoScreen />
+			) : <InfoScreen key="infoScreen" />
+
+		return (
+			<div>
+				<CSSTransitionGroup
+					transitionName="mainTransition"
+					transitionAppear={true}
+					transitionEnter={true}
+					transitionLeave={true}
+					transitionAppearTimeout={750}
+					transitionEnterTimeout={750}
+					transitionLeaveTimeout={200} >
+
+					{currentShow}
+
+				</CSSTransitionGroup>
+			</div>
+		)
 	}
 }
 

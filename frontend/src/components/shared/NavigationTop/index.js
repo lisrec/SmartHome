@@ -6,7 +6,7 @@ import { Icon } from './../Icon'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import NavigationStyles from './style.scss';
 
-export class NavigationTop extends React.Component {
+class NavigationTop extends React.Component {
 
 	constructor(props) {
 		super(props)
@@ -82,3 +82,5 @@ export class NavigationTop extends React.Component {
 NavigationTop.propTypes = {
 	user: PropTypes.object
 }
+
+export default NavigationTop

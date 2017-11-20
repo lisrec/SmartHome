@@ -21,7 +21,7 @@ class MainContainer extends React.Component {
 		super(props)
 
 		this.resetInactiveTimer = this.resetInactiveTimer.bind(this)
-		this.timeToInactive = 1000 * 1 
+		this.timeToInactive = 1000 * 5
 		this.inActiveTimer = null
 
 		this.state = {

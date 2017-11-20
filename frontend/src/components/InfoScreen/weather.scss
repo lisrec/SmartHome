@@ -23,13 +23,6 @@
 			display: inline-block;
 			min-height: 140px;
 			min-width: 160px;
-			position: relative;
-			background-size: contain;
-			background-repeat: no-repeat;
-
-			&.cloudy {
-				background-image: url('../../assets/images/forecast/cloudy.png');
-			}
 		}
 
 		.weather__current__temp {
