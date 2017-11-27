@@ -11,14 +11,11 @@ const checkDB 	= require('./libs/updateDB.js')
 
 const tokensRouter = require('./routes/tokens')
 const devicesRouter = require('./routes/devices')
+const usersRouter = require('./routes/users')
 //var route = require('./routes/route')
-
-//For testing purpose
-let alarmStatus = false
-
 var app = express()
 
-var _port = 3376
+var _port = 3300
 
 app.set('superSecret', config.secret)
 
@@ -39,6 +36,7 @@ app.use(function(req, res, next) {
 
 
 app.use("/api/tokens", tokensRouter)
+app.use("/api/users", usersRouter)
 
 
 
@@ -63,17 +61,6 @@ app.use(function(req, res, next) {
 
 app.use("/api/devices", devicesRouter)
 
-
-//For testing purpose
-app.get("/api/alarm/:state", function(req, res) {
-	let state = (req.params.state == "true") ? true : false
-	alarmStatus = state
-	res.status(200).json({alarmStatus: alarmStatus})
-})
-app.get("/api/alarm", function(req, res) {
-	res.status(200).json({alarmStatus: alarmStatus})
-})
-
 app.get('*', function(req, res){
 	res.send('server')
 })
@@ -90,8 +77,8 @@ process.on('SIGINT', () => {
     })
 })
 
-app.listen(_port, function(){
-	console.log('Server started on ', _port)
+app.listen(config.port, function(){
+	console.log('Server started on ',config.port)
 	checkDB.updateDB()
 	//devicesRouter.initArduino()
 })
