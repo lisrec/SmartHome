@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
 
 	const PinSettings = sequelize.define('pin_settings', {
 		type: {
-			type: Sequelize.STRING,
+			type: Sequelize.STRING(60)
 		},
 		pin_plus: {
 			type: Sequelize.INTEGER
