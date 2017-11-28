@@ -5,16 +5,16 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING,
 		},
 		pin_plus: {
-			type: Sequelize.INTEGER 
+			type: Sequelize.INTEGER
 		},
 		pin_minus: {
-			type: Sequelize.INTEGER 
+			type: Sequelize.INTEGER
 		},
 		pin_data_one: {
-			type: Sequelize.INTEGER 
+			type: Sequelize.INTEGER
 		},
 		pin_data_two: {
-			type: Sequelize.INTEGER 
+			type: Sequelize.INTEGER
 		}
 	}, {
 		timestamps: false

@@ -41,6 +41,7 @@ app.use("/api/tokens", tokensRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/rooms", roomsRouter)
 app.use("/api/pinSettings", pinSettingsRouter)
+app.use("/api/devices", devicesRouter)
 
 app.use(function(req, res, next) {
 	var token = req.body.token || req.query.token || req.headers['x-access-token']
@@ -61,7 +62,6 @@ app.use(function(req, res, next) {
 	}
 })
 
-app.use("/api/devices", devicesRouter)
 
 app.get('*', function(req, res){
 	res.send('server')
