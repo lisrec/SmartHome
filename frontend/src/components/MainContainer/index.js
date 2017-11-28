@@ -28,7 +28,7 @@ class MainContainer extends React.Component {
 		this.handleCheckNewAlarmState = this.handleCheckNewAlarmState.bind(this)
 
 		this.resetInactiveTimer = this.resetInactiveTimer.bind(this)
-		this.timeToInactive = 1000 * 60
+		this.timeToInactive = 1000 * 10
 		this.inActiveTimer = null
 
 		this.state = {

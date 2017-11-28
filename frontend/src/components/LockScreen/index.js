@@ -60,13 +60,13 @@ class LockScreen extends React.Component {
 
 	handleShowPin(show) {
 		let nextState = (show) ? true : false
-		this.setState({showingKeys: nextState})
+		this.setState({pinCode: "", showingKeys: nextState})
 	}
 
 	render() {
 
-		let showingContent = (this.state.showingKeys) ? (
-				<div key="keyboard">
+		let showingKeyboard = (
+				<div key="keyboard" className="keyboardDiv">
 					<input 
 						type="password" 
 						className="pinHolder" 
@@ -94,10 +94,14 @@ class LockScreen extends React.Component {
 						<button className="keyboard__footer--confirm" onClick={this.handleTryUnlock}>Potwierdź</button>
 					</div>
 				</div>
-			) : (
-				<h1 key="padlock" onClick={this.handleShowPin.bind(null, true)}>
-					<i className="fa fa-4x fa-lock" aria-hidden="true"></i>
-				</h1>
+			)
+
+			let showingPadlock = (
+				<div key="padlock" className="padlockDiv">
+					<h1 onClick={this.handleShowPin.bind(null, true)}>
+						<i className="fa fa-4x fa-lock" aria-hidden="true"></i>
+					</h1>
+				</div>
 			)
 
 		return (
@@ -112,7 +116,7 @@ class LockScreen extends React.Component {
 						transitionEnterTimeout={350}
 						transitionLeaveTimeout={350} >
 
-						{showingContent}
+						{(this.state.showingKeys) ? showingKeyboard : showingPadlock}
 
 					</CSSTransitionGroup>
 				</div>
