@@ -12,6 +12,8 @@ const checkDB 	= require('./libs/updateDB.js')
 const tokensRouter = require('./routes/tokens')
 const devicesRouter = require('./routes/devices')
 const usersRouter = require('./routes/users')
+const roomsRouter = require('./routes/rooms')
+const pinSettingsRouter = require('./routes/pinSettings')
 //var route = require('./routes/route')
 var app = express()
 
@@ -37,8 +39,8 @@ app.use(function(req, res, next) {
 
 app.use("/api/tokens", tokensRouter)
 app.use("/api/users", usersRouter)
-
-
+app.use("/api/rooms", roomsRouter)
+app.use("/api/pinSettings", pinSettingsRouter)
 
 app.use(function(req, res, next) {
 	var token = req.body.token || req.query.token || req.headers['x-access-token']

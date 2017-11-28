@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `devices` (
 
 CREATE TABLE IF NOT EXISTS`rooms` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` int(11) DEFAULT NULL,
+  `name` varchar(40) DEFAULT NULL,
   `image_path` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

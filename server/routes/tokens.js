@@ -4,6 +4,12 @@ const jwt		= require('jsonwebtoken')
 
 const secret 	= require('./../config').secret
 const group_names = ['root','admin','security','renter','observer']
+
+const sequ = require('../libs/sequelizeDB.js')
+const Users = require('../models/users.js')(sequ.sequelize ,sequ.Sequelize)
+
+const expiresIn = (60 * 60 * 16)
+
 /*===========================
 =            GETs           =
 ===========================*/
@@ -30,21 +36,19 @@ router.get('/checkToken', (req, res, next) => {
 router.post('/', (req, res, next) => {
 	let login = req.body.login
 	let pass = req.body.pass
-	const signUser = {
-		login:'admin',
-		pass:'admin'
-	}
-	if (login == signUser.login && pass == signUser.pass) {
-		let token = jwt.sign(signUser, secret, {
-			expiresIn : 60 * 60 * 24 
-		});
-		res.status(201).json({
-			token: token,
-			signUser: signUser
-		})
-	} else {
-		res.status(401).json({token: null}).end()
-	}
+	Users.findOne({ where: {login: login} })
+	.then(user => {		
+		if (user && login == user.login && pass == user.pass) {
+			let token = jwt.sign(user.toJSON(), secret, { expiresIn : expiresIn })
+			res.status(201).json({token: token})
+		} else {
+			res.status(401).json({token: null})
+		}
+	})
+	.catch(e => {
+		console.log("error", e)
+		res.status(500).json(e)
+	})
 
 	
 })
