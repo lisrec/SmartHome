@@ -3,20 +3,20 @@ const router 	   = express.Router()
 const _ 		   = require('lodash')
 
 const sequ = require('../libs/sequelizeDB.js')
-const Users = require('../models/users.js')(sequ.sequelize ,sequ.Sequelize)
+const Schedules = require('../models/schedules.js')(sequ.sequelize ,sequ.Sequelize)
 
 /*===========================
 =            GETs           =
 ===========================*/
 
 router.get('/', (req, res, next) => {
-	Users.findAll({
+	Schedules.findAll({
 		attributes: {
 			exclude: ['password']
 		}
 	})
-		.then(users => {
-			res.status(200).json(users)
+		.then(schedules => {
+			res.status(200).json(schedules)
 		})
 		.catch(e => {
 			res.status(500).json(e)
@@ -26,10 +26,10 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
 	const id = req.params.id
-	Users.findById(id)
-		.then(user => {
-			if (user) {
-				res.status(200).json(user)
+	Schedules.findById(id)
+		.then(schedule => {
+			if (schedule) {
+				res.status(200).json(schedule)
 			} else {
 				res.status(400).end()
 			}
@@ -46,10 +46,10 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
 	let data = req.body
 	console.log(data)
-	Users.create(data)
-		.then(user => {
-			delete user.dataValues.pass
-			res.status(201).json(user)
+	Schedules.create(data)
+		.then(schedule => {
+			delete schedule.dataValues.pass
+			res.status(201).json(schedule)
 		})
 		.catch(e => {
 			console.log(e)
@@ -61,17 +61,16 @@ router.post('/', (req, res, next) => {
  =            PUTs            =
  ============================*/
 
-
 router.put('/:id', (req, res, next) => {
 	const id = req.params.id
 	let data = req.body
-	Users.findById(id)
-		.then(user => {
-			if (user) {
-				user.update(data)
+	Schedules.findById(id)
+		.then(schedule => {
+			if (schedule) {
+				schedule.update(data)
 				.then((s) => {
 					console.log(s)
-					res.status(200).json(user)
+					res.status(200).json(schedule)
 				})
 				.catch(e => {
 					res.status(400).json(e.errors)
@@ -86,10 +85,36 @@ router.put('/:id', (req, res, next) => {
 		})
 })
 
+ /*============================
+ =            DELETEs         =
+ ============================*/
+
+router.delete('/:id', (req, res, next) => {
+	const id  = req.params.id
+	Schedules.findById(id)
+		.then(schedule => {
+			if (schedule) {
+				return schedule.destroy()
+			} else {
+				throw new Error("NO_INSTANCE")
+			}
+		})
+		.then( () => {
+			res.status(204).end()
+		})
+		.catch(e => {
+			if (e.message == 'NO_INSTANCE')
+				res.status(400).end()
+			else {
+				console.log(e)
+				res.status(500).json(e)
+			}
+		})
+})
+
+
+
 
 
 
 module.exports = router
-
-
-

@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `inputs` (
 CREATE TABLE IF NOT EXISTS `devices` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `input_id`int(11) UNSIGNED NOT NULL,
-  `room_id`int(11) UNSIGNED NOT NULL,
+  `room_id`int(11) UNSIGNED,
   `state` json DEFAULT NULL,
   `name` varchar(60) NOT NULL,
   `type` varchar(60) NOT NULL,

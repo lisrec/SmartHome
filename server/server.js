@@ -15,6 +15,7 @@ const usersRouter = require('./routes/users')
 const roomsRouter = require('./routes/rooms')
 const inputsRouter = require('./routes/inputs')
 const pinSettingsRouter = require('./routes/pinSettings')
+const schedulesRouter = require('./routes/schedules')
 //var route = require('./routes/route')
 var app = express()
 
@@ -44,6 +45,7 @@ app.use("/api/rooms", roomsRouter)
 app.use("/api/pinSettings", pinSettingsRouter)
 app.use("/api/devices", devicesRouter)
 app.use("/api/inputs", inputsRouter)
+app.use("/api/schedules", schedulesRouter)
 
 app.use(function(req, res, next) {
 	var token = req.body.token || req.query.token || req.headers['x-access-token']

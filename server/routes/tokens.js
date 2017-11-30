@@ -37,18 +37,18 @@ router.post('/', (req, res, next) => {
 	let login = req.body.login
 	let pass = req.body.pass
 	Users.findOne({ where: {login: login} })
-	.then(user => {		
-		if (user && login == user.login && pass == user.pass) {
-			let token = jwt.sign(user.toJSON(), secret, { expiresIn : expiresIn })
-			res.status(201).json({token: token})
-		} else {
-			res.status(401).json({token: null})
-		}
-	})
-	.catch(e => {
-		console.log("error", e)
-		res.status(500).json(e)
-	})
+		.then(user => {		
+			if (user && login == user.login && pass == user.pass) {
+				let token = jwt.sign(user.toJSON(), secret, { expiresIn : expiresIn })
+				res.status(201).json({token: token})
+			} else {
+				res.status(401).json({token: null})
+			}
+		})
+		.catch(e => {
+			console.log("error", e)
+			res.status(500).json(e)
+		})
 
 	
 })

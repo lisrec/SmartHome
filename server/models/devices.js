@@ -13,8 +13,7 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 		},
 		room_id: {
-			type: Sequelize.INTEGER,
-			allowNull: false,
+			type: Sequelize.INTEGER
 		},
 		state: {
 			type: Sequelize.JSON
