@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
 
 import consts from '../../utils/constants'
-import { checkToken, getToken } from '../../services/ApiService'
+import { checkToken, getToken } from '../../services/ApiAuth'
 import UserLoginStyles from './style.scss'
 import { Panel, Grid, Row, Col, FormGroup, 
 	FormControl, ControlLabel, Button, Image } from 'react-bootstrap'

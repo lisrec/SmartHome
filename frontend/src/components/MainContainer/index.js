@@ -11,12 +11,10 @@ import {
 	addEventUserActive, 
 	delEventUserActive } from '../../utils/utils'
 
-import { 
-	checkAlarmState,
-	updateAlarmState,
-	checkToken, 
-	getRooms,
-	geDevices } from '../../services/ApiService'
+import { checkAlarmState, updateAlarmState } from '../../services/ApiAlarms'
+import { checkToken } from '../../services/ApiAuth'
+import { getRooms } from '../../services/ApiRooms'
+import { getDevices } from '../../services/ApiDevices'
 
 
 class MainContainer extends React.Component {
@@ -28,7 +26,7 @@ class MainContainer extends React.Component {
 		this.handleCheckNewAlarmState = this.handleCheckNewAlarmState.bind(this)
 
 		this.resetInactiveTimer = this.resetInactiveTimer.bind(this)
-		this.timeToInactive = 1000 * 10
+		this.timeToInactive = 1000 * 30
 		this.inActiveTimer = null
 
 		this.state = {
@@ -57,7 +55,7 @@ class MainContainer extends React.Component {
 			.then(rooms => { this.setState({rooms: rooms}) })
 			.catch(e => console.log(e))
 
-		geDevices()
+		getDevices()
 			.then(devices => { this.setState({devices: devices}) })
 			.catch(e => console.log(e))
 

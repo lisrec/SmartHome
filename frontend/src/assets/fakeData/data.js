@@ -37,3 +37,28 @@ export const devicesFakeData = [
 		type: 'power'
 	}
 ] 
+
+export const deviceTypesFakeData = [
+	{
+		id: 1,
+		name: 'POWER',
+		defaultState: {
+			'active': false
+		}
+	},
+	{
+		id: 2,
+		name: 'LED',
+		defaultState: {
+			'color': '#FFFFFF',
+			'active': false
+		}
+	},
+	{
+		id: 3,
+		name: 'MOTOR',
+		defaultState: {
+			'position': 0.0
+		}
+	}
+]

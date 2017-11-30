@@ -1,8 +1,7 @@
 import config from '../utils/config'
 import consts from '../utils/constants'
-import { roomsFakeData, devicesFakeData } from '../assets/fakeData/data'
 
-const API_URL = `http://127.0.0.1:3376`
+const API_URL = `http://${location.hostname}:${config.serverPort}`
 
 const LOCAL_TOKEN = () => localStorage.getItem(consts.LOCALSTORAGE_TOKEN) || ''
 const API_HEADER = () => { return {
@@ -15,6 +14,8 @@ function handleErrors(resp) {
 		throw Error(resp.statusText)
 	return resp
 }
+
+
 
 export const blindCheckToken = () => { return (LOCAL_TOKEN()) ? true : false }
 
@@ -67,52 +68,6 @@ export const getToken = (login, pass) => {
 			.catch(e => { 
 				localStorage.removeItem(consts.LOCALSTORAGE_TOKEN)
 				reject("no-auth") 
-			})
-	})
-}
-
-export const getRooms = () => {
-	return new Promise((resolve, reject) => {
-		resolve(roomsFakeData)
-	})
-}
-
-export const geDevices = () => {
-	return new Promise((resolve, reject) => {
-		resolve(devicesFakeData)
-	})
-}
-
-export const checkAlarmState = () => {
-	return new Promise((resolve, reject) => {
-		fetch(`${API_URL}/api/alarm`, {
-			headers: API_HEADER(),
-			method: 'GET'
-		})
-			.then(resp => resp.json())
-			.then(body => {
-				const alarmStatus = (body.alarmStatus) ? true : false
-				resolve(alarmStatus)
-			})
-			.catch(e => { 
-				reject("Server error.", e) 
-			})
-	})
-}
-
-export const updateAlarmState = (newState) => {
-	return new Promise((resolve, reject) => {
-		fetch(`${API_URL}/api/alarm/${newState}`, {
-			headers: API_HEADER(),
-			method: 'GET'
-		})
-			.then(resp => resp.json())
-			.then(body => {
-				const alarmStatus = (body.alarmStatus) ? true : false
-				resolve(alarmStatus)
-			})
-			.catch(e => { 
-				reject("Server error.", e) 
 			})
 	})
 }

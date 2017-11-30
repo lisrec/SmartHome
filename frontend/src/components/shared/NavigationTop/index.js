@@ -58,12 +58,16 @@ class NavigationTop extends React.Component {
 						<NavItem eventKey={2} componentClass={Link} href="/devices" to="/devices" onClick={this.close} active={location.pathname === '/devices'}>
 							<Icon name="lightbulb-o"/> Urządzenia
 						</NavItem>
+
+						<NavItem eventKey={4} componentClass={Link} href="/scheduler" to="/scheduler" onClick={this.close} active={location.pathname === '/scheduler'}>
+							<Icon name="calendar"/> Harmonogramy
+						</NavItem>
 					</Nav>
 
 					<Nav pullRight>
 						<NavDropdown eventKey={3} title={this.getNavigationElementUser()} id="navigation-user-menu">
 							<MenuItem eventKey={3.1} componentClass={Link} href="/myAccount" to="/myAccount" onClick={this.close} active={location.pathname === '/myAccount'}>Moje Konto</MenuItem>
-							<MenuItem eventKey={3.2} componentClass={Link} href="/settings" to="/settings" onClick={this.close} active={location.pathname === '/settings'}>Ustawienia</MenuItem>
+							<MenuItem eventKey={3.2} componentClass={Link} href="/configuration" to="/configuration" onClick={this.close} active={location.pathname === '/configuration'}>Konfiguracja</MenuItem>
 							<MenuItem divider />
 							<MenuItem eventKey={3.3} componentClass={Link} href="/login" to="/login" onClick={this.close}>Wyloguj</MenuItem>
 						</NavDropdown>

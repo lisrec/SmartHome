@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import update from 'react-addons-update'
 import { CSSTransitionGroup } from 'react-transition-group'
 import LockScreenStyle from './style.scss'
-import { updateAlarmState } from '../../services/ApiService'
+import { updateAlarmState } from '../../services/ApiAlarms'
 
 class KeyboardButton extends React.Component {
 

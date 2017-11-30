@@ -38,7 +38,7 @@ class Switch extends React.Component {
 Switch.defaultProps = {
 	disabled: false,
 	readonly: false,
-	bsSize: 'mini',
+	bsSize: 'small',
 	onColor: 'primary',
 	offColor: 'default',
 	onText: 'ON',
